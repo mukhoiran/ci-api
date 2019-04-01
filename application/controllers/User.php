@@ -22,4 +22,12 @@ class User extends CI_Controller {
 	public function register(){
 		return $this->response($this->user_model->save());
 	}
+
+	public function get_all(){
+		return $this->response($this->user_model->get());
+	}
+
+	public function get($id){
+		return $this->response($this->user_model->get('id', $id));
+	}
 }
