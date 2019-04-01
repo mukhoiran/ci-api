@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once APPPATH .'libraries/JWT.php';
+use \Firebase\JWT\JWT;
+
 class User_model extends CI_Model {
 
   public function save(){
