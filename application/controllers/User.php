@@ -21,10 +21,10 @@ class User extends CI_Controller {
     header('Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition, Content-Description');
 	}
 
-	public function response($data){
+	public function response($data, $status = 200){
 		$this->output
 				 ->set_content_type('application/json')
-				 ->set_status_header(200)
+				 ->set_status_header($status)
 				 ->set_output(json_encode($data), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
 				 ->_display();
 
@@ -77,7 +77,7 @@ class User extends CI_Controller {
       return $this->response([
 				'success' => false,
 				'message' => 'Failed to access token'
-			]);
+			], 401);
     }
   }
 
@@ -91,7 +91,7 @@ class User extends CI_Controller {
         return $this->response([
           'success' => false,
           'message' => 'You cannot delete another user'
-        ]);
+        ], 403);
       }
     }
   }
