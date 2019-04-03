@@ -65,13 +65,31 @@ class User extends CI_Controller {
 
     try {
       $decoded = JWT::decode($jwt, $this->secret, array('HS256'));
-      var_dump($decoded);
+      // var_dump($decoded);
+      return $decoded->id;
     } catch (\Exception $e) {
       return $this->response([
 				'success' => false,
 				'message' => 'Failed to access token'
 			]);
     }
+  }
+
+  public function delete($id){
+    //check user login
+    if($id_from_token = $this->check_token()){
+      //only the login user that can delete their user
+      if($id_from_token == $id){
+        $this->response($this->user_model->delete($id));
+      }else{
+        return $this->response([
+          'success' => false,
+          'message' => 'You cannot delete another user'
+        ]);
+      }
+    }
+
+
 
   }
 

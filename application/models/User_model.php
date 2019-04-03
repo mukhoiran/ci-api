@@ -42,5 +42,15 @@ class User_model extends CI_Model {
     }
   }
 
+  public function delete($id){
+    $this->db->where('id', $id);
+    if($this->db->delete('users')){
+      return [
+        'success' => true,
+        'message' => 'Data successfully delete',
+      ];
+    }
+  }
+
 
 }
