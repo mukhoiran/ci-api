@@ -75,12 +75,12 @@ class User extends CI_Controller {
     }
   }
 
-  public function delete($id){
+  public function protected_method($id){
     //check user login
     if($id_from_token = $this->check_token()){
       //only the login user that can delete their user
       if($id_from_token == $id){
-        $this->response($this->user_model->delete($id));
+        return true;
       }else{
         return $this->response([
           'success' => false,
@@ -88,9 +88,24 @@ class User extends CI_Controller {
         ]);
       }
     }
+  }
 
+  public function delete($id){
+    if($this->protected_method($id)){
+      $this->response($this->user_model->delete($id));
+    }
+  }
 
+  public function update($id){
+    $data = $this->get_input();
+    if($this->protected_method($id)){
+      return $this->response($this->user_model->update($id, $data));
+    }
+  }
 
+  public function get_input(){
+    // for get input from PUT
+    return json_decode(file_get_contents('php://input'));
   }
 
 }
