@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH .'libraries/JWT.php';
-use \Firebase\JWT\JWT;
-
 class User_model extends CI_Model {
 
   public function save(){
@@ -31,4 +28,19 @@ class User_model extends CI_Model {
     $query = $this->db->get('users');
     return $query->result();
   }
+
+  public function is_valid(){
+    $email = $this->input->post('email');
+    $password = $this->input->post('password');
+
+    $hash = $this->get('email', $email)->password;
+
+    if(password_verify($password, $hash)){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+
+
 }
