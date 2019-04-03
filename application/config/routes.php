@@ -60,3 +60,4 @@ $route['api/register']['POST']      = 'User/register';
 $route['api/user/(:num)']['PUT']    = 'User/update/$1';
 $route['api/user/(:num)']['DELETE'] = 'User/delete/$1';
 $route['api/login']                 = 'User/login';
+$route['api/check_token']['GET']    = 'User/check_token';
