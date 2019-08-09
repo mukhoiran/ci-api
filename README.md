@@ -1,2 +1,2 @@
 # ci-api
-Documentation codeigniter REST API with JWT
+Codeigniter REST API with JWT
